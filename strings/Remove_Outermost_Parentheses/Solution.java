@@ -1,7 +1,7 @@
 class Solution {
     public String removeOuterParentheses(String str) {
-        
-        boolean ans=false;
+       
+       boolean ans=false;
        int cnt=0;
         StringBuilder sb=new StringBuilder();
 
@@ -14,11 +14,11 @@ class Solution {
                 cnt--;
             }
 
-            if(cnt==2){
+            if(cnt==2 ){
                 ans=true;
             }
 
-            else if(cnt==0){
+            else if( cnt==0){
                 ans=false;
             }
 
@@ -26,7 +26,6 @@ class Solution {
                 sb.append(str.charAt(i));
             }
         }
-
         return sb.toString();
     }
 }
