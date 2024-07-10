@@ -1,53 +1,45 @@
 import java.util.*;
 
-class QuickSort {
+public class Main {
 
-    public static void printArray(int[] array) {
-        for (int num : array) {
-            System.out.print(num + " ");
-        }
-        System.out.println();
-    }
+    public static int partition(int[] nums, int low, int high) {
+        int pivot = nums[low];
+        int i = low;
+        int j = high;
 
-    public static int partition(int[] arr, int low, int high) {
-        int pivot = arr[low];
-        int pivotIndex = low;
+        while (i < j) {
+            while (i <= high && nums[i] <= pivot) i++;
+            while (j >= low && nums[j] > pivot) j--;
 
-        while (low < high) {
-            while (low <= high && arr[low] <= pivot) low++;
-            while (high >= low && arr[high] > pivot) high--;
-
-            if (low < high) {
-                int temp = arr[low];
-                arr[low] = arr[high];
-                arr[high] = temp;
+            if (i < j) {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
             } else {
-                int temp = arr[pivotIndex];
-                arr[pivotIndex] = arr[high];
-                arr[high] = temp;
+                int temp = nums[low];
+                nums[low] = nums[j];
+                nums[j] = temp;
             }
         }
 
-        return high;
+        return j;
     }
 
-    public static void quickSort(int[] arr, int low, int high) {
+    public static void quickSort(int[] nums, int low, int high) {
         if (low < high) {
-            int partitionIndex = partition(arr, low, high);
-            quickSort(arr, low, partitionIndex - 1);
-            quickSort(arr, partitionIndex + 1, high);
+            int partitionIndex = partition(nums, low, high);
+            quickSort(nums, low, partitionIndex - 1);
+            quickSort(nums, partitionIndex + 1, high);
         }
     }
 
     public static void main(String[] args) {
-        int[] nums = {9,8,7,6,5,4,3,2,1};
+        int[] arr = {3, 4, 1, 5, 2, 7, -1, 0};
 
-        System.out.println("Original array:");
-        printArray(nums);
+        quickSort(arr, 0, arr.length - 1);
 
-        quickSort(nums, 0, nums.length - 1);
-
-        System.out.println("\nSorted array:");
-        printArray(nums);
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
     }
 }
