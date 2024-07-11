@@ -1,78 +1,60 @@
-class Queue {
-    private int[] arr;
-    private int front;
-    private int rear;
-    private int size;
-    private int capacity;
+public class Queue {
+    int capacity = 4;
+    int[] arr = new int[capacity];
+    int front = 0;
+    int rear = 0;
+    int size = 0;
 
-    public Queue(int capacity) {
-        this.capacity = capacity;
-        this.arr = new int[capacity];
-        this.front = 0;
-        this.rear = -1;
-        this.size = 0;
-    }
-
-    public void enqueue(int item) {
-        if (isFull()) {
-            System.out.println("Queue is full. Cannot enqueue.");
-            return;
+    public void enqueue(int val) {
+        if (size == capacity) {
+            System.out.println("Cannot enqueue, queue is full");
+        } else {
+            arr[rear] = val;
+            rear = (rear + 1) % capacity;
+            size++;
+            System.out.println(val + " enqueued");
         }
-        rear = (rear + 1) % capacity;
-        arr[rear] = item;
-        size++;
-        System.out.println("The enque element is: "+ arr[rear]);
     }
 
-    public int dequeue() {
-        if (isEmpty()) {
-            System.out.println("Queue is empty. Cannot dequeue.");
-            return -1;
+    public void dequeue() {
+        if (size == 0) {
+            System.out.println("Cannot dequeue, queue is empty");
+        } else {
+            int val = arr[front];
+            front = (front + 1) % capacity;
+            size--;
+            System.out.println(val + " dequeued");
         }
-        int item = arr[front];
-        front = (front + 1) % capacity;
-        size--;
-        return item;
     }
 
-    public int peek() {
-        if (isEmpty()) {
-            System.out.println("Queue is empty. Cannot peek.");
-            return -1;
+    public void peek() {
+        if (size == 0) {
+            System.out.println("Cannot peek, queue is empty");
+        } else {
+            int val = arr[front];
+            System.out.println(val + " peeked");
         }
-        return arr[front];
     }
 
-    public int size() {
-        return size;
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    public boolean isFull() {
-        return size == capacity;
+    public void getSize() {
+        System.out.println("Size: " + size);
     }
 
     public static void main(String[] args) {
-        Queue queue = new Queue(5);
+        Queue q = new Queue();
 
-        queue.enqueue(1);
-        queue.enqueue(2);
-        queue.enqueue(3);
-        queue.enqueue(4);
-        queue.enqueue(5);
-        queue.enqueue(6);
+        q.enqueue(5);
+        q.enqueue(6);
+        q.enqueue(7);
+        q.enqueue(8);
+        q.dequeue();
+        q.enqueue(9);
 
-        System.out.println("Dequeued item: " + queue.dequeue());
-        System.out.println("Dequeued item: " + queue.dequeue());
-        
-        queue.enqueue(6);
-        queue.enqueue(7);
-        
-        System.out.println("Front item: " + queue.peek());
-        System.out.println("Queue size: " + queue.size());
+        q.dequeue();
+        q.dequeue();
+        q.dequeue();
+        q.dequeue();
+        q.peek();
+        q.getSize();
     }
 }
-
