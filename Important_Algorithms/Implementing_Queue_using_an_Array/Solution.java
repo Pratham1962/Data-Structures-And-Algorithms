@@ -1,54 +1,59 @@
-class Queue
-{   
-    int rear=-1;
-    int front=0;
-    int[] arr=new int[5];
-    int capacity=5;
-    
-    public void enque(int val){
-        if(rear==capacity-1) System.out.println("queue is full");
-        
-        else{
-            rear++;
-            arr[rear]=val;
-            System.out.println("The element is pushed: "+ arr[rear]);
-        }
-    }
-    
-    public void deque(){
-        if(front>rear) System.out.println("queue is empty");
-        
-        else{
-            System.out.println("The deque element is: "+arr[front]);
-            front++;
-        }
-    }
-    
-    public void size(){
-        System.out.println("The size is: "+ (rear-front+1));
-    }
-    
-    public void peek(){
+public class Queue {
+    int capacity = 4;
+    int[] arr = new int[capacity];
+    int front = 0;
+    int rear = 0;
 
-        System.out.println("The top element is: "+arr[front]);
+    public void enque(int val) {
+        if (rear == capacity) {
+            System.out.println("Cannot enqueue, queue is full");
+        } else {
+            arr[rear] = val;
+            rear++;
+            System.out.println(val + " enqueued");
+        }
     }
-    
-    
-    
-	public static void main(String[] args) {
-	    Queue q=new Queue();
-	    
-	    q.enque(4);
-	    q.enque(5);
-	    q.enque(6);
-	    q.enque(7);
-	    q.enque(8);
-	    
-	    q.deque();
-	    q.deque();
-	    
-	    q.size();
-	    
-	    q.peek();
-	}
+
+    public void deque() {
+        if (front >= rear) {
+            System.out.println("Cannot dequeue, queue is empty");
+        } else {
+            int val = arr[front];
+            front++;
+            System.out.println(val + " dequeued");
+
+            if (front == rear) { // Reset the queue if it's empty
+                front = 0;
+                rear = 0;
+            }
+        }
+    }
+
+    public void peek() {
+        if (front >= rear) {
+            System.out.println("Cannot peek, queue is empty");
+        } else {
+            int val = arr[front];
+            System.out.println(val + " peeked");
+        }
+    }
+
+    public void size() {
+        System.out.println("Size: " + (rear - front));
+    }
+
+    public static void main(String[] args) {
+        Queue q = new Queue();
+
+        q.enque(5);
+        q.enque(6);
+        q.enque(7);
+        q.enque(8);
+        q.enque(9);
+
+        q.deque();
+        q.deque();
+        q.peek();
+        q.size();
+    }
 }
